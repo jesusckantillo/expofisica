@@ -1,10 +1,11 @@
- 
+// In this script we manage all the data related to the charts
+
 const socket = io();
 
-
-const canva = document.getElementById("funciona");
+// Chart #1: Field vs time
+const canva = document.getElementById("fieldVsTime");
 const ctx = canva.getContext("2d");
-isPlotting = true;
+
 const data = {
   labels: [],
   datasets: [
@@ -77,27 +78,8 @@ socket.on("arduino:data", function(dataSerial) {
       chart.update();
     });
 
-function changeButtonColor() {
+// Chart #2: Field vs distance
+const FIELD_VS_DISTANCE_CANVA = document.getElementById('fieldVsDistance')
 
-      var button = document.getElementById("serialButton");
-      var chart = document.getElementById("funciona")
-
-      if (button.classList.contains("btn-inverse-danger")) {
-
-        button.classList.remove("btn-inverse-danger");
-        button.classList.add("btn-inverse-success");
-
-        button.innerText = "Run serial";
-
-      //isPlotting = false
-      } else {
-
-        button.classList.remove("btn-inverse-success");
-        button.classList.add("btn-inverse-danger");
-
-        button.innerText = "Stop serial";
-
-        //isPlotting = true
-      }
-
-    }
+// Chart #3: Magnetic flux
+const MAGNETIC_FLUX_CANVA = document.getElementById('magneticFlux')

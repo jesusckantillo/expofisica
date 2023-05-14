@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Expofisica-2023</title>
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-   
+
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
@@ -51,8 +51,8 @@
             </div>
           </li>
 
-             <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
+           <li class="nav-item menu-items">
+            <a class="nav-link" href="/">
               <span class="menu-icon">
                 <i class="mdi mdi-chart-bar"></i>
               </span>
@@ -70,14 +70,14 @@
           </li>
 
           <li class="nav-item menu-items">
-            <a class="nav-link" href="/magnetic-flux">
+            <a class="nav-link" href="#">
               <span class="menu-icon">
                 <i class="mdi mdi-chart-bar"></i>
               </span>
               <span class="menu-title">Gráfica #3: Flujo magnético</span>
             </a>
           </li>
-
+          
         </ul>
       </nav>
       <!-- partial -->
@@ -105,24 +105,25 @@
           </div>
         </nav>
 
-        <!-- CHART #1 -->
+        <!-- CHART #3 -->
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
-              <h3 class="page-title"> Gráficas del sensor hall </h3>
+              <h3 class="page-title"> Gráfica #3 del sensor hall </h3>
             </div>
             <div class="row">
               <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Campo vs tiempo</h4>
-                    <canvas id="fieldVsTime" style="height:250px"></canvas>
+                    <h4 class="card-title">Flujo magnético</h4>
+                    <canvas id="magneticFlux" style="height:250px"></canvas>
                   </div>
                 </div>
               </div>
             </div>
 
-          </div>
+
+            </div>
           </div>
           <!-- content-wrapper ends -->
 
@@ -131,6 +132,7 @@
         <!-- main-panel ends -->
       </div>
       <!-- page-body-wrapper ends -->
+    <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->

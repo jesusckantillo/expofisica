@@ -1,14 +1,20 @@
-// Server initialization
+// SERVER INITIALIZATION
 const express = require('express');
 const app = express();
 const path = require('path');
 const http = require('http');
-const TEMPLATE_ROOT = '../client/template';
+
+// STATIC ROOTS
+const STATIC_ROOT = '../client/template';
+const INDEX_ROOT = STATIC_ROOT + '/index.html';
+const FIELD_VS_DISTANCE_ROOT = STATIC_ROOT + '/field-vs-distance.html';
+const MAGNETIC_FLUX_ROOT = STATIC_ROOT + '/magnetic-flux.html';
+
 var serialConnected = true;
 const { SerialPort } = require('serialport')
 const { DelimiterParser } = require('@serialport/parser-delimiter')
 
-//Socket initialization
+//SOCKET INITIALIZATION
 const server = require('http').createServer(app);
 const io = require('socket.io')(server)
 
@@ -20,13 +26,22 @@ io.on('connection',function(socket){
 });
 
 
-//settings
+//SETTINGS
 app.set('port', process.env.PORT || 3000);
-app.use(express.static(path.join(__dirname, '../client/template')));
+app.use(express.static(path.join(__dirname, STATIC_ROOT)));
 
+// SERVER ROOTS
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/template/index.html'));
+    res.sendFile(path.join(__dirname, INDEX_ROOT));
   });
+
+app.get('/field-vs-distance', (req, res) =>{
+    res.sendFile(path.join(__dirname, FIELD_VS_DISTANCE_ROOT))
+});
+
+app.get('/magnetic-flux', (req, res) => {
+    res.sendFile(path.join(__dirname, MAGNETIC_FLUX_ROOT))
+})
 
 
 app.get('/socket.io/socket.io.js', (req, res) => {
@@ -53,7 +68,7 @@ const parser = port.pipe(new DelimiterParser({ delimiter: '\n' }))
 
 //Parser listener funcs
 parser.on('open',function(){
-    showModal('success', 'Serial running', 2000);
+   console.log('Serial running')
 });
 
 parser.on('data',function(data){
@@ -71,53 +86,3 @@ port.on('error',function(err){
 })
 
 //Socket will comunicate the arduino with the web, only localhost
-
-
-// Interactive button to indicate if we're connected to the serial port
-function changeButtonColor() {
-
-  var button = document.getElementById("serialButton");
-  var button_in_red = button.classList.contains("btn-inverse-danger");
-  var button_in_green = button.classList.contains("btn-inverse-success");
-
-  if (button_in_red) {
-
-    button.classList.remove("btn-inverse-danger");
-    button.classList.add("btn-inverse-success");
-    button.innerText = "Run serial";
-    showModal('success', 'Conexión serial terminada', 2000);
-
-  }else if (button_in_green && !serialConnected){
-    showModal('error', 'No hay ningún serial conectado', 2000);
-  }else if (button_in_green && serialConnected) {
-
-    button.classList.remove("btn-inverse-success");
-    button.classList.add("btn-inverse-danger");
-    button.innerText = "Stop serial";
-
-    showModal('success', 'Conexión serial iniciada', 2000);
-  }
-
-}
-
-// Connection modal function
-function showModal(icon, text, delay) {
-
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: delay,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
-
-        Toast.fire({
-            icon: icon,
-            title: text
-        });
-}
-
